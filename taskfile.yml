@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  kubeadm: # creates Linux VM so I can run kubeadm commands. Not supported on Mac
+    cmds: 
+      - 
+    silent: true
+  
+  kind: # Spins up a local kind cluster when I want to quickly mess with something
