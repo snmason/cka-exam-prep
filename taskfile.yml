@@ -1,9 +1,15 @@
 version: '3'
 
 tasks:
-  kubeadm: # creates Linux VM so I can run kubeadm commands. Not supported on Mac
+  # Used to spin up some VMs to practice kubeadm commands and clean them up. 
+  kubeadm: 
     cmds: 
-      - 
+      - ./deploy-virtual-machines.sh
+
     silent: true
+
+  kubeadm_clean:
+    cmds:
+      - ./delete-virtual-machines.sh
   
-  kind: # Spins up a local kind cluster when I want to quickly mess with something
+  kind: # Quickly spin up a cluster to work on concepts
