@@ -21,3 +21,9 @@ tasks:
       - ./delete-virtual-machines.sh
   
   kind: # Quickly spin up a cluster to work on concepts
+    cmds:
+      - kind create cluster --config kind-config.yaml
+
+  kind_clean: # Quickly spin up a cluster to work on concepts
+    cmds:
+      - kind delete cluster
