@@ -5,18 +5,16 @@ tasks:
   kubeadm: 
     cmds: 
       - ./deploy-virtual-machines.sh
+      - multipass list
     silent: true
 
   kubeadm_setup: # automate configuration up to the point where kubeadm init can be run
     vars:
       VM_LIST: 
         sh: multipass list | awk '{print $1}' | tail -n +2 | sed -n '/^[[:space:]]*[a-zA-Z]/p'
-      SCRIPT:
-        sh: ./scripts/kubeadm-setup.sh
     cmds:
-      - for: { var: VM_LIST, var: SCRIPT }
-        cmd: multipass exec {{ .ITEM }} {{ .SCRIPT }}
-
+      - for: { var: VM_LIST }
+        cmd: multipass transfer ./scripts/kubeadm-setup.sh {{ .ITEM }}:. && multipass exec {{ .ITEM }} ./kubeadm-setup.sh
 
   kubeadm_clean:
     cmds:
